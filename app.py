@@ -1,8 +1,14 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 
-tasks = []
+tasks = ["Goto the mall to pick up books", "Task 2"]
+
+
+@app.route("/")
+def index():
+    return render_template("index.html", tasks=tasks)
+
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
@@ -32,5 +38,4 @@ def delete_task(task_id):
         return jsonify({'error': 'Invalid task index.'}), 400
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run(debug=True, host="0.0.0.0")
