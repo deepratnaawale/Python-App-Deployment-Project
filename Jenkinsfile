@@ -8,13 +8,17 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                app = docker.build("python-app-todo")
+                script{
+                    app = docker.build("python-app-todo")   
+                }
             }
         }
         stage('Run Tests') {
             steps {
-                app.inside{
-                    sh 'echo Test Passed'
+                script{
+                    app.inside{
+                        sh 'echo Test Passed'
+                    }   
                 }
             }
         }
